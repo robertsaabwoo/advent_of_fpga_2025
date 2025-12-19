@@ -5,8 +5,6 @@
 module day_3_tb;
 
     parameter INPUTWIDTH = 64;
-    parameter MAXLENGTH = INPUTWIDTH + 4*$ceil(INPUTWIDTH/3);
-    parameter integer OUTPUTWIDTH = (MAXLENGTH % 4 ==0)?MAXLENGTH : MAXLENGTH - (MAXLENGTH%4) + 4;
 
     // Clock & reset
     logic clk;
@@ -18,7 +16,7 @@ module day_3_tb;
 
     // -----------------------------
     // DUT instantiation
-    day_3 #(.INPUTWIDTH(INPUTWIDTH)) dut (
+    day_3 #(.INPUTWIDTH(INPUTWIDTH), .OUTPUTWIDTH(INPUTWIDTH)) dut (
         .clk(clk),
         .rst_n(rst_n),
         .s_axis(s_axis_if),
@@ -71,6 +69,7 @@ module day_3_tb;
         for (int i =count; i >=0; i--) begin
             if ((dec % 10 > max_digit_1) && (i != 0)) begin
                 max_digit_1 = dec%10;
+                max_digit_2 = 0;
             end
             else if ((dec % 10 > max_digit_2)) begin
                 max_digit_2 = dec%10;
@@ -86,7 +85,7 @@ module day_3_tb;
     function automatic bit is_valid(
         input int length,
         input logic [INPUTWIDTH-1:0] decimal_val[$],
-        input logic [OUTPUTWIDTH-1:0] hw_val  // DUT output
+        input logic [INPUTWIDTH-1:0] hw_val  // DUT output
     );
 
         longint unsigned sum = 0;
