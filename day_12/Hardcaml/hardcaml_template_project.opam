@@ -1,0 +1,16 @@
+opam-version: "2.0"
+maintainer: "Robert Saab"
+authors: ["Robert Saab, LLC"]
+homepage: "https://github.com/robertsaabwoo/advent_of_fpga_2025"
+build: [
+  ["dune" "build" "-p" name "-j" jobs]
+]
+depends: [
+  "ocaml" {>= "5.1.0"}
+  "dune" {>= "3.17.0"}
+]
+available: arch != "arm32" & arch != "x86_32"
+synopsis: "Robert Saab's Day 12 in HardCaml"
+description: "
+Robert Saab's Day 12 in HardCaml
+"
